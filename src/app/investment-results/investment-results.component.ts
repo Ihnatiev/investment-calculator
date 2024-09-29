@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { CurrencyPipe } from "@angular/common";
 import { InvestmentService } from "../services/investment.service";
+import { InvestmentResult } from "../interfaces";
 
 @Component({
   selector: 'app-investment-results',
@@ -14,7 +15,5 @@ import { InvestmentService } from "../services/investment.service";
 export class InvestmentResultsComponent {
   private investmentService: InvestmentService = inject(InvestmentService)
 
-  get results() {
-    return this.investmentService.resultData;
-  }
+  results: Signal<InvestmentResult[] | undefined> = this.investmentService.resultData.asReadonly();
 }
